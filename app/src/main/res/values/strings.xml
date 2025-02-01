@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Gestor APP</string>
+
+    <!--opciones menu-->
+    <string name="Opcion_todas">Todas</string>
+    <string name="Opcion_ajustes">Ajustes</string>
+    <string name="Opciones_salir">Salir</string>
+
+    <!--layout menu-->
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
+    <!--boton agregar-->
+    <string name="FAB_AgregarPassword">Agregar</string>
+
+    <!--diseño para agregar-->
+    <string name="EtTitulo">Titulo</string>
+    <string name="EtCuenta">Cuenta</string>
+    <string name="EtNombreUsuario">Nombre de Usuario</string>
+    <string name="EtPassword">Contraseña</string>
+    <string name="EtSitioWeb">SitioWeb</string>
+    <string name="EtNota">Nota</string>
+
+    <!--menu para agregar-->
+    <string name="Guardar_Password">Guardar</string>
+
+    <!--diseño mostrar password-->
+    <string name="Item_titulo">Titulo</string>
+    <string name="Item_cuenta">Cuenta</string>
+    <string name="Item_nombre_usuario">Nombre de Usuario</string>
+    <string name="Item_password">Password</string>
+    <string name="Item_sitio_web">SitioWeb</string>
+    <string name="Item_nota">Nota</string>
+
+    <!--todas fragmentos-->
+    <string name="menu_Numero_registros">Numero de registros</string>
+    <string name="menu_buscar_registro">Buscar Registro</string>
+
+    <!--dialogo numero de registros-->
+    <string name="TxtTotal">Total de registros</string>}
+    <string name="Total"> -- </string>
+    <string name="BtnTotal">Entendido</string>
+
+    <!--detalles-->
+    <string name="Txt_D_Titulo">Titulo: </string>
+    <string name="Txt_D_Cuenta">Cuenta: </string>
+    <string name="Txt_D_Nombre_usuario">Usuario: </string>
+    <string name="Txt_D_Password">Contraseña: </string>
+    <string name="Txt_D_Sitio_web">Sitio Web: </string>
+    <string name="Txt_D_Nota">Nota: </string>
+    <string name="Txt_D_Tiempo_registro">Agregado: </string>
+    <string name="Txt_D_Tiempo_actualizacion">Actualizado: </string>
+
+    <string name="D_Titulo"> -- </string>
+    <string name="D_Cuenta"> -- </string>
+    <string name="D_Nombre_usuario"> -- </string>
+    <string name="D_Password"> -- </string>
+    <string name="D_Sitio_web"> -- </string>
+    <string name="D_Nota"> -- </string>
+    <string name="D_Tiempo_registro"> -- </string>
+    <string name="D_Tiempo_actualizacion"> -- </string>7
+
+    <!--Cuadro de dialogo editar y eliminar-->
+    <string name="Btn_Editar_registro">Editar</string>
+    <string name="Btn_Eliminar_registro">Eliminar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

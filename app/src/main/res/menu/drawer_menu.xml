@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/Opcion_todas"
+        android:title="@string/Opcion_todas"
+        android:icon="@drawable/icon_todas"
+        />
+
+    <item
+        android:id="@+id/Opcion_ajustes"
+        android:title="@string/Opcion_ajustes"
+        android:icon="@drawable/icon_ajustes"
+        />
+
+    <item
+        android:id="@+id/Opciones_salir"
+        android:title="@string/Opciones_salir"
+        android:icon="@drawable/icon_salir"
+        />
+
+</menu>

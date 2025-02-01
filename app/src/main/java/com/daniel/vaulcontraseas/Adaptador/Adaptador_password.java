@@ -1,0 +1,164 @@
+package com.daniel.vaulcontraseas.Adaptador;
+
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.daniel.vaulcontraseas.Detalle.Detalle_registro;
+import com.daniel.vaulcontraseas.Modelo.Password;
+import com.daniel.vaulcontraseas.OpcionesPassword.Agregar_Actualizar_Registro;
+import com.daniel.vaulcontraseas.R;
+
+import java.util.ArrayList;
+
+public class Adaptador_password extends RecyclerView.Adapter<Adaptador_password.HolderPassword>{
+
+    private Context context;
+
+    private ArrayList<Password> passwordsList;
+
+    Dialog dialog;
+
+    public Adaptador_password(Context context, ArrayList<Password> passwordsList) {
+        this.context = context;
+        this.passwordsList = passwordsList;
+        dialog = new Dialog(context);
+    }
+
+    @NonNull
+    @Override
+    public HolderPassword onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //inflamos el item
+        View view = LayoutInflater.from(context).inflate(R.layout.item_password, parent, false);
+        return new HolderPassword(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HolderPassword holder, @SuppressLint("RecyclerView") int position) {
+        Password modelo_password = passwordsList.get(position);
+        String id = modelo_password.getId();
+        String titulo = modelo_password.getTitulo();
+        String cuenta = modelo_password.getCuenta();
+        String nombre_usuario = modelo_password.getNombre_usuario();
+        String password = modelo_password.getPassword();
+        String sitio_web = modelo_password.getSitio_web();
+        String nota = modelo_password.getNota();
+        String tiempo_registro = modelo_password.getT_registro();
+        String tiempo_actualizacion = modelo_password.getT_actualizacion();
+
+        holder.Item_titulo.setText(titulo);
+        holder.Item_cuenta.setText(cuenta);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Cuado el usuario presione en el item
+                Intent intent = new Intent(context, Detalle_registro.class);
+                //Enviamos el dato id a la actividad detalle
+                intent.putExtra("Id_registro", id);
+                context.startActivity(intent);
+
+            }
+        });
+        holder.img_buton_mas_opciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Cuando el usuario presione las opciones
+                opciones_editar_eliminar(
+                        "" + position,
+                        "" + id,
+                        "" + titulo,
+                        "" + cuenta,
+                        "" + password,
+                        "" + nombre_usuario,
+                        "" + sitio_web,
+                        "" + nota,
+                        "" + tiempo_registro,
+                        "" + tiempo_actualizacion
+                );
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        //este metodo devuelve el tamañode la lista
+        return passwordsList.size();
+    }
+
+    class HolderPassword extends RecyclerView.ViewHolder{
+
+        TextView Item_titulo, Item_cuenta, Item_nombre_usuario, Item_password, Item_sitio_web, Item_nota;
+
+        ImageButton img_buton_mas_opciones;
+
+        public HolderPassword(@NonNull View itemView) {
+            super(itemView);
+
+            Item_titulo = itemView.findViewById(R.id.Item_titulo);
+            Item_cuenta = itemView.findViewById(R.id.Item_cuenta);
+            Item_nombre_usuario = itemView.findViewById(R.id.Item_nombre_usuario);
+            Item_password = itemView.findViewById(R.id.Item_password);
+            Item_sitio_web = itemView.findViewById(R.id.Item_sitio_web);
+            Item_nota = itemView.findViewById(R.id.Item_nota);
+
+            img_buton_mas_opciones = itemView.findViewById(R.id.img_buton_mas_opciones);
+
+        }
+    }
+
+    private void opciones_editar_eliminar(String position, String id, String titulo, String cuenta, String password, String nombre_usuario,
+                                          String sitio_web, String nota, String tiempo_registro, String tiempo_actualizacion){
+        Button Btn_Editar_registro, Btn_Eliminar_registro;
+
+        dialog.setContentView(R.layout.cuadro_editar_aliminar);
+
+        Btn_Editar_registro = dialog.findViewById(R.id.Btn_Editar_registro);
+        Btn_Eliminar_registro = dialog.findViewById(R.id.Btn_Eliminar_registro);
+
+        Btn_Editar_registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Agregar_Actualizar_Registro.class);
+                intent.putExtra("POSICION", position);
+                intent.putExtra("ID", id);
+                intent.putExtra("TITULO", titulo);
+                intent.putExtra("CUENTA", cuenta);
+                intent.putExtra("NOMBRE_USUARIO", nombre_usuario);
+                intent.putExtra("PASSWORD", password);
+                intent.putExtra("SITIO_WEB", sitio_web);
+                intent.putExtra("NOTA", nota);
+                intent.putExtra("T_REGISTRO", tiempo_registro);
+                intent.putExtra("T_ACTUALIZACION", tiempo_actualizacion);
+                intent.putExtra("MODO_EDICION", true);
+                context.startActivity(intent);
+
+                dialog.dismiss();
+            }
+        });
+
+        Btn_Eliminar_registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Eliminar Registro", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.setCancelable(true );
+    }
+
+}
