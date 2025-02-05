@@ -16,7 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daniel.vaulcontraseas.BaseDeDatos.BDHelper;
 import com.daniel.vaulcontraseas.Detalle.Detalle_registro;
+import com.daniel.vaulcontraseas.MainActivity;
 import com.daniel.vaulcontraseas.Modelo.Password;
 import com.daniel.vaulcontraseas.OpcionesPassword.Agregar_Actualizar_Registro;
 import com.daniel.vaulcontraseas.R;
@@ -31,10 +33,13 @@ public class Adaptador_password extends RecyclerView.Adapter<Adaptador_password.
 
     Dialog dialog;
 
+    BDHelper helper;
+
     public Adaptador_password(Context context, ArrayList<Password> passwordsList) {
         this.context = context;
         this.passwordsList = passwordsList;
         dialog = new Dialog(context);
+        helper = new BDHelper(context);
     }
 
     @NonNull
@@ -152,7 +157,12 @@ public class Adaptador_password extends RecyclerView.Adapter<Adaptador_password.
         Btn_Eliminar_registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Eliminar Registro", Toast.LENGTH_SHORT).show();
+                helper.Eliminar_registro(id);
+                Intent intent = new Intent(context, MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                Toast.makeText(context, "Registro eliminado", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

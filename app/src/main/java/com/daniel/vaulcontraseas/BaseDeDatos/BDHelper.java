@@ -148,4 +148,10 @@ public class BDHelper extends SQLiteOpenHelper {
         return contador;
     }
 
+    public void Eliminar_registro(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.TABLE_NAME, Constants.C_ID+" =?", new String[]{id});
+        db.close();
+    }
+
 }

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daniel.vaulcontraseas.Adaptador.Adaptador_password;
 import com.daniel.vaulcontraseas.BaseDeDatos.BDHelper;
@@ -32,7 +33,14 @@ public class F_Todas extends Fragment {
     RecyclerView recycler_view_registros;
     FloatingActionButton FAB_AgregarPassword;
 
-    Dialog dialog;
+    Dialog dialog, dialog_ordenar;
+
+    String ordenarNuevos = Constants.C_TIEMPO_REGISTRO + " DESC";
+    String ordenarAntiguos = Constants.C_TIEMPO_REGISTRO + " ASC";
+    String ordenarTituloAsc = Constants.C_TITULO + " ASC";
+    String ordenarTituloDesc = Constants.C_TITULO + " DESC";
+
+    String EstadoOrden = ordenarTituloAsc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +52,9 @@ public class F_Todas extends Fragment {
         FAB_AgregarPassword = view.findViewById(R.id.FAB_AgregarPassword);
         helper = new BDHelper(getActivity());
         dialog = new Dialog(getActivity());
+        dialog_ordenar = new Dialog(getActivity());
 
-        CargarRegistros();
+        CargarRegistros(ordenarTituloAsc);
 
         FAB_AgregarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +68,10 @@ public class F_Todas extends Fragment {
         return view;
     }
 
-    private void CargarRegistros() {
+    private void CargarRegistros(String orderby) {
+        EstadoOrden = orderby;
         Adaptador_password adaptadorPassword = new Adaptador_password(getActivity(), helper.ObtenerTodosLosRegistros(
-                Constants.C_TITULO + " ASC"));
+                orderby));
         recycler_view_registros.setAdapter(adaptadorPassword);
     }
 
@@ -98,6 +108,10 @@ public class F_Todas extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.menu_ordenar_registros){
+            ordenar_registros();
+            return true;
+        }
         if (id == R.id.menu_Numero_registros){
             visualizar_registros();
             return true;
@@ -109,6 +123,12 @@ public class F_Todas extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        CargarRegistros(EstadoOrden);
+        super.onResume();
     }
 
     private void visualizar_registros(){
@@ -137,6 +157,49 @@ public class F_Todas extends Fragment {
         dialog.show();
         dialog.setCancelable(false);
 
+    }
+
+    private void ordenar_registros(){
+        Button BtnNuevos, BtnAntiguos, BtnTituloAsc, BtnTituloDesc;
+
+        dialog_ordenar.setContentView(R.layout.cuadro_dialogo_ordenar_registros);
+
+        BtnNuevos = dialog_ordenar.findViewById(R.id.Btn_Nuevos);
+        BtnAntiguos = dialog_ordenar.findViewById(R.id.Btn_Pasados);
+        BtnTituloAsc = dialog_ordenar.findViewById(R.id.Btn_Titulo_asc);
+        BtnTituloDesc = dialog_ordenar.findViewById(R.id.Btn_Titulo_desc);
+
+        BtnNuevos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CargarRegistros(ordenarNuevos);
+                dialog_ordenar.dismiss();
+            }
+        });
+        BtnAntiguos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CargarRegistros(ordenarAntiguos);
+                dialog_ordenar.dismiss();
+            }
+        });
+        BtnTituloAsc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CargarRegistros(ordenarTituloAsc);
+                dialog_ordenar.dismiss();
+            }
+        });
+        BtnTituloDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CargarRegistros(ordenarTituloDesc);
+                dialog_ordenar.dismiss();
+            }
+        });
+
+        dialog_ordenar.show();
+        dialog_ordenar.setCancelable(true);
     }
 
 }

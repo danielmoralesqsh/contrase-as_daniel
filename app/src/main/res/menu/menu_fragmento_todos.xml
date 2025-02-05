@@ -10,6 +10,12 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
+        android:id="@+id/menu_ordenar_registros"
+        android:title="@string/menu_ordenar_registros"
+        android:icon="@drawable/icon_ordenar_registros"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/menu_Numero_registros"
         android:title="@string/menu_Numero_registros"
         android:icon="@drawable/icon_numero_registros"
