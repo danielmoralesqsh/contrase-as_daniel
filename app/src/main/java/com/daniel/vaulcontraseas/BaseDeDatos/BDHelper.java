@@ -154,4 +154,10 @@ public class BDHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void Eliminar_todos_registros(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + Constants.TABLE_NAME);
+        db.close();
+    }
+
 }

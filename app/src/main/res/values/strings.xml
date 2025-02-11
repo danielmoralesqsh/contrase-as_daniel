@@ -71,6 +71,15 @@
     <string name="Btn_Titulo_asc">A-Z</string>
     <string name="Btn_Titulo_desc">Z-A</string>
 
+    <!--Cuadro de dialogo ordenar Registros-->
+    <string name="Txt_Ajustes">Ajustes</string>
+    <string name="Elimimnar_todos_registros">Eliminar Registros</string>
+
+    <!--Cuadro dialogo mensaje-->
+    <string name="Pregunta_txt">¿Eliminar registros?</string>
+    <string name="Btn_Si">Si</string>
+    <string name="Btn_No">No</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
