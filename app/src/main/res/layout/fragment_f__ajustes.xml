@@ -20,7 +20,7 @@
             android:textSize="20sp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"/>
-        
+        <!--Eliminar todos los registros-->
         <TextView
             android:id="@+id/Elimimnar_todos_registros"
             android:layout_width="wrap_content"
@@ -32,6 +32,38 @@
             android:layout_marginStart="20dp"
             android:textSize="18sp"
             app:drawableStartCompat="@drawable/icono_elimnar_registros"
+            android:drawablePadding="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"/>
+        <!--Exportar registros-->
+        <TextView
+            android:id="@+id/Exportar_registros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Exportar_registros"
+            android:fontFamily="@font/robotocondensed_bold"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/icono_exportar"
+            android:drawablePadding="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"/>
+        <!--Importar registros-->
+        <TextView
+            android:id="@+id/Importar_registros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Importar_registros"
+            android:fontFamily="@font/robotocondensed_bold"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/icono_importar"
             android:drawablePadding="10dp"
             android:clickable="true"
             android:focusable="true"

@@ -71,9 +71,11 @@
     <string name="Btn_Titulo_asc">A-Z</string>
     <string name="Btn_Titulo_desc">Z-A</string>
 
-    <!--Cuadro de dialogo ordenar Registros-->
+    <!--Menu ajustes-->
     <string name="Txt_Ajustes">Ajustes</string>
     <string name="Elimimnar_todos_registros">Eliminar Registros</string>
+    <string name="Exportar_registros">Exportar Registros</string>
+    <string name="Importar_registros">Importar Registros</string>
 
     <!--Cuadro dialogo mensaje-->
     <string name="Pregunta_txt">¿Eliminar registros?</string>

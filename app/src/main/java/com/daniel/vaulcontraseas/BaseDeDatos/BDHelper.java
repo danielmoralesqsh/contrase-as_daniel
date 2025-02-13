@@ -30,8 +30,8 @@ public class BDHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertarRegistro (String titulo, String cuenta, String nombre_usuario, String password,
-                                  String sitio_web, String nota, String T_registro, String T_actualizacion){
+    public long insertarRegistro(String titulo, String cuenta, String nombre_usuario, String password,
+                                        String sitio_web, String nota, String T_registro, String T_actualizacion){
 
         SQLiteDatabase db=this.getReadableDatabase();
 
