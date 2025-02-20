@@ -1,5 +1,6 @@
 package com.daniel.vaulcontraseas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.daniel.vaulcontraseas.Fragmentos.F_Ajustes;
 import com.daniel.vaulcontraseas.Fragmentos.F_Todas;
+import com.daniel.vaulcontraseas.Login_usuario.Login_user;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -67,12 +69,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new F_Ajustes()).commit();
         }
         if (id == R.id.Opciones_salir){
+            CerrarSesion();
             Toast.makeText(this, "Cerraste Sesion", Toast.LENGTH_SHORT).show();
         }
 
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void CerrarSesion() {
+        startActivity(new Intent(MainActivity.this, Login_user.class));
+        Toast.makeText(this, "Cerraste Sesion", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

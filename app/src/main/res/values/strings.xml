@@ -76,12 +76,34 @@
     <string name="Elimimnar_todos_registros">Eliminar Registros</string>
     <string name="Exportar_registros">Exportar Registros</string>
     <string name="Importar_registros">Importar Registros</string>
+    <string name="Cambiar_contraseña_maestra">Cambiar Contraseña</string>
+
+    <!--Cuadro dialogo contraseña maestra-->
+    <string name="TXT_contraseña_maestra">Su contraseña maestra es</string>
+    <string name="Password_maestra"> -- </string>
+    <string name="Et_nuevo_password_maestra">Nueva Contraseña</string>
+    <string name="Et_confirmar_password_maestra">Confirmar Contraseña</string>
+    <string name="Btn_cambiar_password_maestra">Cambiar</string>
+    <string name="Btn_cancelar_password_maestra">Cancelar</string>
 
     <!--Cuadro dialogo mensaje-->
     <string name="Pregunta_txt">¿Eliminar registros?</string>
     <string name="Btn_Si">Si</string>
     <string name="Btn_No">No</string>
 
+    <!--Cuadro dialogo mensaje-->
+    <string name="TXT_Bienvenidos">Bienvenido(a)</string>
+    <string name="TXT_Mensaje">Introduzca su contraseña maestra</string>
+    <string name="EtMPassword">Contraseña</string>
+    <string name="EtCPassword">Confirmar Contraseña</string>
+    <string name="Btn_Registrar">Confirmar Contraseña</string>
+
+    <!--Login-->
+    <string name="Btn_ingresar">Ingresar</string>
+
+    <!--BIOMETRICO-->
+    <string name="TXT_otro_metodo">Otro metodo</string>
+    <string name="BtnInicioSesionBiometrico">Autenticacion Biometrica</string>"
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

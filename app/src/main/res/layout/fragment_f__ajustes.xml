@@ -68,7 +68,22 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"/>
-
+        <!--Cambiar contraseña-->
+        <TextView
+            android:id="@+id/Cambiar_contraseña_maestra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Cambiar_contraseña_maestra"
+            android:fontFamily="@font/robotocondensed_bold"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/icono_password_maestra"
+            android:drawablePadding="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>
