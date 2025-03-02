@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
-
     <!-- Queries para interactuar con el sistema de archivos -->
     <queries>
         <intent>
@@ -30,9 +29,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+
         <activity
             android:name=".Login_usuario.Login_user"
             android:exported="false" />
+
         <activity
             android:name=".Registro_usuario.Registro"
             android:exported="true">
@@ -41,12 +42,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Detalle.Detalle_registro"
             android:exported="false" />
+
+        <activity
+            android:name=".Detalle.Detalle_nota"
+            android:exported="false" />
+
         <activity
             android:name=".OpcionesPassword.Agregar_Actualizar_Registro"
             android:exported="false" />
+
+        <activity
+            android:name=".OpcionesPassword.Agregar_Actualizar_Nota"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

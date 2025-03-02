@@ -7,24 +7,20 @@ import android.os.Looper;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.daniel.vaulcontraseas.Fragmentos.F_Ajustes;
+import com.daniel.vaulcontraseas.Fragmentos.F_Notas;
 import com.daniel.vaulcontraseas.Fragmentos.F_Todas;
 import com.daniel.vaulcontraseas.Login_usuario.Login_user;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawer;
 
@@ -49,26 +45,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //Fragmento al ejecutar la aplicacion
-        if (savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new F_Todas()).commit();
-            navigationView.setCheckedItem(R.id.Opcion_todas);
+        // Verificar si hay un extra en el Intent
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("FRAGMENT_TO_LOAD")) {
+            String fragmentToLoad = intent.getStringExtra("FRAGMENT_TO_LOAD");
+            if ("F_Notas".equals(fragmentToLoad)) {
+                // Cargar el fragmento de notas
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new F_Notas()).commit();
+                navigationView.setCheckedItem(R.id.Opcion_notas);
+            } else {
+                // Cargar el fragmento por defecto (F_Todas)
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new F_Todas()).commit();
+                navigationView.setCheckedItem(R.id.Opcion_todas);
+            }
+        } else {
+            // Fragmento al ejecutar la aplicación por primera vez
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new F_Todas()).commit();
+                navigationView.setCheckedItem(R.id.Opcion_todas);
+            }
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.Opcion_todas){
+        if (id == R.id.Opcion_todas) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new F_Todas()).commit();
         }
-        if (id == R.id.Opcion_ajustes){
+        if (id == R.id.Opcion_notas) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new F_Notas()).commit();
+        }
+        if (id == R.id.Opcion_ajustes) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new F_Ajustes()).commit();
         }
-        if (id == R.id.Opciones_salir){
+        if (id == R.id.Opciones_salir) {
             CerrarSesion();
             Toast.makeText(this, "Cerraste Sesion", Toast.LENGTH_SHORT).show();
         }
@@ -86,20 +103,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-
-        //Si dobletap es verdader nos va a sacar  de la aplicaciaon
-
-        if (dobletap){
+        // Si dobletap es verdadero nos va a sacar de la aplicación
+        if (dobletap) {
             super.onBackPressed();
             Toast.makeText(this, "Saliste del gestor", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //se activa al tocar una ves el boton de retroceso
-        this.dobletap=true;
-        Toast.makeText(this, "Presion dos veces para salir", Toast.LENGTH_SHORT).show();
+        // Se activa al tocar una vez el botón de retroceso
+        this.dobletap = true;
+        Toast.makeText(this, "Presiona dos veces para salir", Toast.LENGTH_SHORT).show();
 
-        //despues de volverse verdadero dobletap con el siguiente codigo despues de cierto tiempo vuelve a falso
+        // Después de volverse verdadero dobletap, con el siguiente código después de cierto tiempo vuelve a falso
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {

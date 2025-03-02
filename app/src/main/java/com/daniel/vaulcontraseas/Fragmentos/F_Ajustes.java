@@ -1,20 +1,11 @@
 package com.daniel.vaulcontraseas.Fragmentos;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.os.Environment;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -25,11 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.daniel.vaulcontraseas.BaseDeDatos.BDHelper;
 import com.daniel.vaulcontraseas.BaseDeDatos.Constants;
 import com.daniel.vaulcontraseas.Login_usuario.Login_user;
 import com.daniel.vaulcontraseas.MainActivity;
 import com.daniel.vaulcontraseas.Modelo.Password;
+import com.daniel.vaulcontraseas.Modelo.Nota;
 import com.daniel.vaulcontraseas.R;
 import com.opencsv.CSVReader;
 
@@ -50,7 +45,6 @@ public class F_Ajustes extends Fragment {
     private static final String SHARED_PREFS = "mi_pref";
     private static final String PASSWORD = "password";
     private static final String CONFIRM_PASSWORD = "confirm_password";
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,38 +71,28 @@ public class F_Ajustes extends Fragment {
         Exportar_registros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                    ExportarRegistros();
-                } else {
-                    SolicitudPermisoExportar.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                }
+                ExportarRegistros(); // Llamada directa sin verificar permisos
             }
         });
 
         Importar_registros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Importar Archihvo", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Importar registros");
-                builder.setMessage("Se elmininaran los registros actuales");
+                builder.setMessage("Se eliminarán los registros actuales de contraseñas y notas");
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (ContextCompat.checkSelfPermission(getActivity(),
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                            bdHelper.Eliminar_todos_registros();
-                            ImportarRegistros();
-                        } else {
-                            SolicitudPermisoImportar.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                        }
+                        bdHelper.Eliminar_todos_registros();
+                        bdHelper.eliminarTodasLasNotas();
+                        ImportarRegistros(); // Llamada directa sin verificar permisos
                     }
                 });
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "Importacion Cancelada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Importación cancelada", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -119,7 +103,6 @@ public class F_Ajustes extends Fragment {
         Cambiar_contraseña_maestra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Cambiar contraseña maestra", Toast.LENGTH_SHORT).show();
                 Cuadrodialogopasswordmaestra();
             }
         });
@@ -127,9 +110,7 @@ public class F_Ajustes extends Fragment {
         return view;
     }
 
-
     private void dialogo_eliminar_registros() {
-
         Button Btn_Si, Btn_No;
 
         dialog.setContentView(R.layout.cuadro_dialogo_eliminar_registros);
@@ -141,6 +122,7 @@ public class F_Ajustes extends Fragment {
             @Override
             public void onClick(View v) {
                 bdHelper.Eliminar_todos_registros();
+                bdHelper.eliminarTodasLasNotas();
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 Toast.makeText(getActivity(), "Registros eliminados", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
@@ -159,120 +141,158 @@ public class F_Ajustes extends Fragment {
     }
 
     private void ExportarRegistros() {
-        //Nombre de la carpeta
+        // Nombre de la carpeta
         File carpeta = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "VaulContraseas");
 
         boolean carpeta_existe = carpeta.exists();
 
         if (!carpeta.exists()) {
-            //si la capeta no existe creamos una nueva
+            // Si la carpeta no existe, creamos una nueva
             carpeta_existe = carpeta.mkdirs();
         }
 
-        //Nombre del archivo
+        // Nombre del archivo para contraseñas
         String csvnombreArchivo = "VaulContraseas.csv";
-        //Concatenamos la carpeta con el nombre del archivo
-        String Carpeta_acrchivo = carpeta + "/" + csvnombreArchivo;
+        // Nombre del archivo para notas
+        String csvnombreArchivoNotas = "VaulNotas.csv";
 
-        //obtenemos el registro a exportar
-        ArrayList<Password> registroList = new ArrayList<>();
-        registroList.clear();
-        registroList = bdHelper.ObtenerTodosLosRegistros(ordenarTituloASC);
+        // Concatenamos la carpeta con el nombre del archivo
+        String Carpeta_archivo = carpeta + "/" + csvnombreArchivo;
+        String Carpeta_archivo_notas = carpeta + "/" + csvnombreArchivoNotas;
+
+        // Exportar registros de contraseñas
+        exportarTabla(Constants.TABLE_NAME, Carpeta_archivo, "Contraseñas");
+
+        // Exportar registros de notas
+        exportarTabla(Constants.TABLE_NOTAS, Carpeta_archivo_notas, "Notas");
+    }
+
+    private void exportarTabla(String tabla, String rutaArchivo, String tipoDatos) {
+        // Obtener los registros de la tabla
+        ArrayList<?> registros;
+        if (tabla.equals(Constants.TABLE_NAME)) {
+            registros = bdHelper.ObtenerTodosLosRegistros(ordenarTituloASC);
+        } else {
+            registros = bdHelper.obtenerTodasLasNotas(ordenarTituloASC);
+        }
 
         try {
-
-            //Escribir en el archivo
-            FileWriter fileWriter = new FileWriter(Carpeta_acrchivo);
-            for (int i = 0; i < registroList.size(); i++) {
-                fileWriter.append("" + registroList.get(i).getId());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getTitulo());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getCuenta());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getNombre_usuario());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getPassword());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getSitio_web());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getNota());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getT_registro());
-                fileWriter.append(",");
-                fileWriter.append("" + registroList.get(i).getT_actualizacion());
+            // Escribir en el archivo
+            FileWriter fileWriter = new FileWriter(rutaArchivo);
+            for (int i = 0; i < registros.size(); i++) {
+                if (tabla.equals(Constants.TABLE_NAME)) {
+                    Password registro = (Password) registros.get(i);
+                    fileWriter.append("" + registro.getId());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getTitulo());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getCuenta());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getNombre_usuario());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getPassword());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getSitio_web());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getNota());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getT_registro());
+                    fileWriter.append(",");
+                    fileWriter.append("" + registro.getT_actualizacion());
+                } else {
+                    Nota nota = (Nota) registros.get(i);
+                    fileWriter.append("" + nota.getId());
+                    fileWriter.append(",");
+                    fileWriter.append("" + nota.getTitulo());
+                    fileWriter.append(",");
+                    fileWriter.append("" + nota.getContenido());
+                    fileWriter.append(",");
+                    fileWriter.append("" + nota.getT_registro());
+                    fileWriter.append(",");
+                    fileWriter.append("" + nota.getT_actualizacion());
+                }
                 fileWriter.append("\n");
             }
 
             fileWriter.flush();
             fileWriter.close();
-            Toast.makeText(getActivity(), "Registros exportados exitosamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), tipoDatos + " exportados exitosamente", Toast.LENGTH_SHORT).show();
 
-        }catch (Exception e){
-
-            Toast.makeText(getActivity(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Error al exportar " + tipoDatos + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     private void ImportarRegistros() {
-        //Establecer la ruta
-        String Carpeta_archivo = Environment.getExternalStorageDirectory()+ "/Download/" + "/VaulContraseas/" + "VaulContraseas.csv";
-        File archivo = new File(Carpeta_archivo);
-        if (archivo.exists()){
-            //Si el archivo existe
+        // Establecer la ruta para contraseñas
+        String Carpeta_archivo = Environment.getExternalStorageDirectory() + "/Download/VaulContraseas/VaulContraseas.csv";
+        // Establecer la ruta para notas
+        String Carpeta_archivo_notas = Environment.getExternalStorageDirectory() + "/Download/VaulContraseas/VaulNotas.csv";
+
+        // Importar registros de contraseñas
+        importarTabla(Constants.TABLE_NAME, Carpeta_archivo, "Contraseñas");
+
+        // Importar registros de notas
+        importarTabla(Constants.TABLE_NOTAS, Carpeta_archivo_notas, "Notas");
+    }
+
+    private void importarTabla(String tabla, String rutaArchivo, String tipoDatos) {
+        File archivo = new File(rutaArchivo);
+        if (archivo.exists()) {
             try {
-
                 CSVReader csvReader = new CSVReader(new FileReader(archivo.getAbsoluteFile()));
-                String [] nexline;
-                while ((nexline = csvReader.readNext()) != null){
-                    String ids = nexline[0];
-                    String titulo = nexline[1];
-                    String cuenta = nexline[2];
-                    String nombre_usuario = nexline[3];
-                    String password = nexline[4];
-                    String sitio_web = nexline[5];
-                    String nota = nexline[6];
-                    String t_registro = nexline[7];
-                    String t_actualizacion = nexline[8];
+                String[] nexline;
+                while ((nexline = csvReader.readNext()) != null) {
+                    if (tabla.equals(Constants.TABLE_NAME)) {
+                        // Importar registros de contraseñas
+                        String ids = nexline[0];
+                        String titulo = nexline[1];
+                        String cuenta = nexline[2];
+                        String nombre_usuario = nexline[3];
+                        String password = nexline[4];
+                        String sitio_web = nexline[5];
+                        String nota = nexline[6];
+                        String t_registro = nexline[7];
+                        String t_actualizacion = nexline[8];
 
-                    long id = bdHelper.insertarRegistro(
-                            ""+titulo,
-                            ""+cuenta,
-                            ""+nombre_usuario,
-                            ""+password,
-                            ""+sitio_web,
-                            ""+nota,
-                            ""+t_registro,
-                            ""+t_actualizacion);
+                        long id = bdHelper.insertarRegistro(
+                                titulo, cuenta, nombre_usuario, password,
+                                sitio_web, nota, t_registro, t_actualizacion);
+                    } else {
+                        // Importar registros de notas
+                        String ids = nexline[0];
+                        String titulo = nexline[1];
+                        String contenido = nexline[2];
+                        String t_registro = nexline[3];
+                        String t_actualizacion = nexline[4];
+
+                        long id = bdHelper.insertarNota(
+                                titulo, contenido, t_registro, t_actualizacion);
+                    }
                 }
 
-                Toast.makeText(getActivity(), "Registros importados correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), tipoDatos + " importados correctamente", Toast.LENGTH_SHORT).show();
 
-            }catch (Exception e){
-                Toast.makeText(getActivity(), "Error al importar", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), "Error al importar " + tipoDatos + ": " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+        } else {
+            Toast.makeText(getActivity(), "No existe una exportación previa de " + tipoDatos, Toast.LENGTH_SHORT).show();
         }
-        else {
-            Toast.makeText(getActivity(), "No existe una exportacion previa", Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     private void Cuadrodialogopasswordmaestra() {
-        //establecer las vistar
+        // Establecer las vistas
         EditText Password_maestra;
         EditText Et_nuevo_password_maestra, Et_confirmar_password_maestra;
         Button Btn_cambiar_password_maestra, Btn_cancelar_password_maestra;
 
         String password_maestra_recuperada = sharedPreferences.getString(PASSWORD, null);
 
-        //hacemos la conexion con el cuadro de dialogo
+        // Hacemos la conexión con el cuadro de diálogo
         dialogo_p_maestra.setContentView(R.layout.cuadro_dialogo_password_maestra);
 
-        //Inicializar las vistas
+        // Inicializar las vistas
         Password_maestra = dialogo_p_maestra.findViewById(R.id.Password_maestra);
         Et_nuevo_password_maestra = dialogo_p_maestra.findViewById(R.id.Et_nuevo_password_maestra);
         Et_confirmar_password_maestra = dialogo_p_maestra.findViewById(R.id.Et_confirmar_password_maestra);
@@ -282,30 +302,30 @@ public class F_Ajustes extends Fragment {
         Btn_cambiar_password_maestra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Cambiar password maestra", Toast.LENGTH_SHORT).show();
-                //Obtener los datos del edit text
+                // Obtener los datos del EditText
                 String S_nuevo_password = Et_nuevo_password_maestra.getText().toString().trim();
                 String S_confirm_nuevo_password = Et_confirmar_password_maestra.getText().toString().trim();
 
-                //Validacion de campos
-                if (S_nuevo_password.equals("")){
+                // Validación de campos
+                if (S_nuevo_password.equals("")) {
                     Toast.makeText(getActivity(), "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
-                }
-                else if (S_confirm_nuevo_password.equals("")){
+                } else if (S_confirm_nuevo_password.equals("")) {
                     Toast.makeText(getActivity(), "Confirme su contraseña", Toast.LENGTH_SHORT).show();
-                }
-                else if (S_nuevo_password.length()<6){
+                } else if (S_nuevo_password.length() < 6) {
                     Toast.makeText(getActivity(), "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
-                }
-                else if (!S_nuevo_password.equals(S_confirm_nuevo_password)){
+                } else if (!S_nuevo_password.matches(".*[A-Z].*")) {
+                    Toast.makeText(getActivity(), "La contraseña debe contener al menos una letra mayúscula", Toast.LENGTH_SHORT).show();
+                } else if (!S_nuevo_password.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
+                    Toast.makeText(getActivity(), "La contraseña debe contener al menos un carácter especial", Toast.LENGTH_SHORT).show();
+                } else if (!S_nuevo_password.equals(S_confirm_nuevo_password)) {
                     Toast.makeText(getActivity(), "Las contraseñas deben ser iguales", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    //Pasar los nuevos datos a las llaves
+                    // Pasar los nuevos datos a las llaves
                     editor.putString(PASSWORD, S_nuevo_password);
                     editor.putString(CONFIRM_PASSWORD, S_confirm_nuevo_password);
                     editor.apply();
-                    //Salir de la aplicacion para iniciar sesion con la nueva contraseña
+                    // Salir de la aplicación para iniciar sesión con la nueva contraseña
                     startActivity(new Intent(getActivity(), Login_user.class));
                     getActivity().finish();
                     Toast.makeText(getActivity(), "Contraseña maestra actualizada", Toast.LENGTH_SHORT).show();
@@ -329,27 +349,5 @@ public class F_Ajustes extends Fragment {
 
         dialogo_p_maestra.show();
         dialogo_p_maestra.setCancelable(false);
-
     }
-
-    //permiso para exportar registro
-    private ActivityResultLauncher<String> SolicitudPermisoExportar =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), Concede_permiso_exportar ->{
-                if (Concede_permiso_exportar){
-                    ExportarRegistros();
-                }
-                else {
-                    Toast.makeText(getActivity(), "Permiso denegado", Toast.LENGTH_SHORT).show();
-                }
-            });
-    //permiso para importar registro
-    private ActivityResultLauncher<String> SolicitudPermisoImportar =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), Concede_permiso_importar ->{
-                if (Concede_permiso_importar){
-                    ImportarRegistros();
-                }
-                else {
-                    Toast.makeText(getActivity(), "Permiso denegado", Toast.LENGTH_SHORT).show();
-                }
-            });
 }

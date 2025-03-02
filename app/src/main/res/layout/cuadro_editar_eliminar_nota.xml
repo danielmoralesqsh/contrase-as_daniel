@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_gravity="center"
+    android:background="#ffffff">
+
+    <!-- Botón para editar la nota -->
+    <Button
+        android:id="@+id/Btn_Editar_nota"
+        android:text="@string/Btn_Editar_nota"
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Botón para eliminar la nota -->
+    <Button
+        android:id="@+id/Btn_Eliminar_nota"
+        android:text="@string/Btn_Eliminar_nota"
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

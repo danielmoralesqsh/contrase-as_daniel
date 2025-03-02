@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <!-- Animación Lottie para ordenar notas -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_fileName="filtro_animado.json"
+        app:lottie_autoPlay="true"/>
+
+    <!-- Botón para ordenar por notas nuevas -->
+    <Button
+        android:id="@+id/Btn_Nuevos_Notas"
+        android:text="@string/Btn_Nuevos_Notas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Botón para ordenar por notas antiguas -->
+    <Button
+        android:id="@+id/Btn_Pasados_Notas"
+        android:text="@string/Btn_Pasados_Notas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Botón para ordenar por título ascendente -->
+    <Button
+        android:id="@+id/Btn_Titulo_asc_Notas"
+        android:text="@string/Btn_Titulo_asc_Notas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Botón para ordenar por título descendente -->
+    <Button
+        android:id="@+id/Btn_Titulo_desc_Notas"
+        android:text="@string/Btn_Titulo_desc_Notas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

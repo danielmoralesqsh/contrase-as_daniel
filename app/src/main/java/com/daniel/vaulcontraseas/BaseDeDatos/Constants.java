@@ -5,12 +5,16 @@ public class Constants {
     //nombre de la base
     public static final String BD_NAME = "PASSWORD_BD";
 
-    //versionde la base de datos
-    public static final int BD_VERSION = 1;
+    //version de la base de datos
+    public static final int BD_VERSION = 2; // Incrementa la versión de la base de datos
 
-    //nombre de la tabla
+    //nombre de la tabla de contraseñas
     public static final String TABLE_NAME = "PASSWORD_TABLE";
 
+    //nombre de la tabla de notas
+    public static final String TABLE_NOTAS = "NOTAS_TABLE";
+
+    //columnas de la tabla de contraseñas
     public static final String C_ID = "ID";
     public static final String C_TITULO = "TITULO";
     public static final String C_CUENTA = "CUENTA";
@@ -21,6 +25,14 @@ public class Constants {
     public static final String C_TIEMPO_REGISTRO = "TIEMPO_REGISTRO";
     public static final String C_TIEMPO_ACTUALIZACION = "TIEMPO_ACTUALIZACION";
 
+    //columnas de la tabla de notas
+    public static final String N_ID = "ID";
+    public static final String N_TITULO = "TITULO";
+    public static final String N_CONTENIDO = "CONTENIDO";
+    public static final String N_TIEMPO_REGISTRO = "TIEMPO_REGISTRO";
+    public static final String N_TIEMPO_ACTUALIZACION = "TIEMPO_ACTUALIZACION";
+
+    //crear tabla de contraseñas
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME
             + "("
             + C_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -34,4 +46,13 @@ public class Constants {
             + C_TIEMPO_ACTUALIZACION + " TEXT"
             + ")";
 
+    //crear tabla de notas
+    public static final String CREATE_TABLE_NOTAS = "CREATE TABLE " + TABLE_NOTAS
+            + "("
+            + N_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + N_TITULO + " TEXT, "
+            + N_CONTENIDO + " TEXT, "
+            + N_TIEMPO_REGISTRO + " TEXT, "
+            + N_TIEMPO_ACTUALIZACION + " TEXT"
+            + ")";
 }

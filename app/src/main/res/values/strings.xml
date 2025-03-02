@@ -1,30 +1,47 @@
 <resources>
+    <!-- Nombre de la aplicación -->
     <string name="app_name">Gestor APP</string>
 
-    <!--opciones menu-->
+    <!-- Pantalla de inicio de sesión -->
+    <string name="TXT_Bienvenidos">Bienvenido(a)</string>
+    <string name="TXT_Mensaje">Introduzca su contraseña maestra</string>
+    <string name="EtMPassword">Contraseña</string>
+    <string name="EtCPassword">Confirmar Contraseña</string>
+    <string name="Btn_ingresar">Ingresar</string>
+    <string name="Btn_Registrar">Confirmar Contraseña</string>
+
+    <!-- Autenticación biométrica -->
+    <string name="TXT_otro_metodo">Otro metodo</string>
+    <string name="BtnInicioSesionBiometrico">Autenticacion Biometrica</string>
+
+    <!-- Opciones del menú principal -->
     <string name="Opcion_todas">Todas</string>
+    <string name="Opcion_notas">Notas</string>
     <string name="Opcion_ajustes">Ajustes</string>
     <string name="Opciones_salir">Salir</string>
 
-    <!--layout menu-->
+    <!-- Cajón de navegación -->
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
 
-    <!--boton agregar-->
+    <!-- Botones flotantes -->
     <string name="FAB_AgregarPassword">Agregar</string>
+    <string name="FAB_AgregarPasswordNotas">Agregar Nota</string>
 
-    <!--diseño para agregar-->
+    <!-- ############################## -->
+    <!-- SECCIÓN DE CONTRASEÑAS NORMALES -->
+    <!-- ############################## -->
+
+    <!-- Formulario para agregar contraseñas -->
     <string name="EtTitulo">Titulo</string>
     <string name="EtCuenta">Cuenta</string>
     <string name="EtNombreUsuario">Nombre de Usuario</string>
     <string name="EtPassword">Contraseña</string>
     <string name="EtSitioWeb">SitioWeb</string>
     <string name="EtNota">Nota</string>
-
-    <!--menu para agregar-->
     <string name="Guardar_Password">Guardar</string>
 
-    <!--diseño mostrar password-->
+    <!-- Detalles de contraseñas -->
     <string name="Item_titulo">Titulo</string>
     <string name="Item_cuenta">Cuenta</string>
     <string name="Item_nombre_usuario">Nombre de Usuario</string>
@@ -32,17 +49,22 @@
     <string name="Item_sitio_web">SitioWeb</string>
     <string name="Item_nota">Nota</string>
 
-    <!--todas fragmentos-->
-    <string name="menu_Numero_registros">Numero de registros</string>
-    <string name="menu_buscar_registro">Buscar Registro</string>
+    <!-- Menú de Registros -->
+    <string name="menu_buscar_registro">Buscar</string>
     <string name="menu_ordenar_registros">Ordenar Registros</string>
+    <string name="menu_Numero_registros">Número de Registros</string>
 
-    <!--dialogo numero de registros-->
-    <string name="TxtTotal">Total de registros</string>}
-    <string name="Total"> -- </string>
-    <string name="BtnTotal">Entendido</string>
+    <!-- Diálogo: Editar/Eliminar registros -->
+    <string name="Btn_Editar_registro">Editar</string>
+    <string name="Btn_Eliminar_registro">Eliminar</string>
 
-    <!--detalles-->
+    <!-- Diálogo: Ordenar registros -->
+    <string name="Btn_Nuevos">Nuevos</string>
+    <string name="Btn_Pasados">Pasados</string>
+    <string name="Btn_Titulo_asc">A-Z</string>
+    <string name="Btn_Titulo_desc">Z-A</string>
+
+    <!-- Detalles de registros -->
     <string name="Txt_D_Titulo">Titulo: </string>
     <string name="Txt_D_Cuenta">Cuenta: </string>
     <string name="Txt_D_Nombre_usuario">Usuario: </string>
@@ -59,26 +81,115 @@
     <string name="D_Sitio_web"> -- </string>
     <string name="D_Nota"> -- </string>
     <string name="D_Tiempo_registro"> -- </string>
-    <string name="D_Tiempo_actualizacion"> -- </string>7
+    <string name="D_Tiempo_actualizacion"> -- </string>
 
-    <!--Cuadro de dialogo editar y eliminar-->
-    <string name="Btn_Editar_registro">Editar</string>
-    <string name="Btn_Eliminar_registro">Eliminar</string>
+    <!-- Diálogo: Número de registros -->
+    <string name="TxtTotal">Total de registros</string>
+    <string name="Total"> -- </string>
+    <string name="BtnTotal">Entendido</string>
 
-    <!--Cuadro de dialogo ordenar Registros-->
-    <string name="Btn_Nuevos">Nuevos</string>
-    <string name="Btn_Pasados">Pasados</string>
-    <string name="Btn_Titulo_asc">A-Z</string>
-    <string name="Btn_Titulo_desc">Z-A</string>
+    <!-- ############################## -->
+    <!-- SECCIÓN DE NOTAS SEGURAS -->
+    <!-- ############################## -->
 
-    <!--Menu ajustes-->
+    <!-- Formulario para agregar notas seguras -->
+    <string name="EtTitulo_Notas">Titulo</string>
+    <string name="EtContenido_Notas">Nota Segura</string>
+
+    <!-- Detalles de notas -->
+    <string name="Item_titulo_nota">Título de la nota</string>
+    <string name="Item_contenido">Contenido de la nota...</string>
+
+    <!-- Diálogo: Editar/Eliminar notas -->
+    <string name="Btn_Editar_nota">Editar Nota</string>
+    <string name="Btn_Eliminar_nota">Eliminar Nota</string>
+
+    <!-- Diálogo: Ordenar notas -->
+    <string name="Btn_Nuevos_Notas">Nuevos</string>
+    <string name="Btn_Pasados_Notas">Pasados</string>
+    <string name="Btn_Titulo_asc_Notas">A-Z</string>
+    <string name="Btn_Titulo_desc_Notas">Z-A</string>
+
+    <!-- Detalles de notas -->
+    <string name="Txt_D_Contenido">Contenido: </string>
+    <string name="D_Contenido"> -- </string>
+
+    <!-- Diálogo: Número de notas -->
+    <string name="TxtTotal_Notas">Total de notas</string>
+    <string name="Total_Notas"> -- </string>
+    <string name="BtnTotal_Notas">Entendido</string>
+
+    <!-- Menú de notas -->
+    <string name="menu_buscar_nota">Buscar Nota</string>
+    <string name="menu_ordenar_notas">Ordenar Notas</string>
+    <string name="menu_numero_notas">Número de Notas</string>
+
+    <!-- ############################## -->
+    <!-- SECCIÓN DE TARJETAS DE CRÉDITO -->
+    <!-- ############################## -->
+
+    <!-- Formulario para agregar tarjetas de crédito -->
+    <string name="EtTitulo_Tarjeta">Titulo</string>
+    <string name="EtNumero_Tarjeta">Número de Tarjeta</string>
+    <string name="EtNombre_Tarjeta">Nombre en la Tarjeta</string>
+    <string name="EtFecha_Expiracion">Fecha de Expiración</string>
+    <string name="EtCVV">CVV</string>
+    <string name="EtNota_Tarjeta">Nota</string>
+    <string name="Guardar_Tarjeta">Guardar</string>
+
+    <!-- Detalles de tarjetas de crédito -->
+    <string name="Item_titulo_tarjeta">Título de la Tarjeta</string>
+    <string name="Item_numero_tarjeta">Número de Tarjeta</string>
+    <string name="Item_nombre_tarjeta">Nombre en la Tarjeta</string>
+    <string name="Item_fecha_expiracion">Fecha de Expiración</string>
+    <string name="Item_cvv">CVV</string>
+    <string name="Item_nota_tarjeta">Nota</string>
+
+    <!-- Diálogo: Editar/Eliminar tarjetas de crédito -->
+    <string name="Btn_Editar_tarjeta">Editar Tarjeta</string>
+    <string name="Btn_Eliminar_tarjeta">Eliminar Tarjeta</string>
+
+    <!-- Diálogo: Ordenar tarjetas de crédito -->
+    <string name="Btn_Nuevos_Tarjetas">Nuevos</string>
+    <string name="Btn_Pasados_Tarjetas">Pasados</string>
+    <string name="Btn_Titulo_asc_Tarjetas">A-Z</string>
+    <string name="Btn_Titulo_desc_Tarjetas">Z-A</string>
+
+    <!-- Detalles de tarjetas de crédito -->
+    <string name="Txt_D_Numero_Tarjeta">Número de Tarjeta: </string>
+    <string name="Txt_D_Nombre_Tarjeta">Nombre en la Tarjeta: </string>
+    <string name="Txt_D_Fecha_Expiracion">Fecha de Expiración: </string>
+    <string name="Txt_D_CVV">CVV: </string>
+    <string name="Txt_D_Nota_Tarjeta">Nota: </string>
+
+    <string name="D_Numero_Tarjeta"> -- </string>
+    <string name="D_Nombre_Tarjeta"> -- </string>
+    <string name="D_Fecha_Expiracion"> -- </string>
+    <string name="D_CVV"> -- </string>
+    <string name="D_Nota_Tarjeta"> -- </string>
+
+    <!-- Diálogo: Número de tarjetas de crédito -->
+    <string name="TxtTotal_Tarjetas">Total de tarjetas</string>
+    <string name="Total_Tarjetas"> -- </string>
+    <string name="BtnTotal_Tarjetas">Entendido</string>
+
+    <!-- Menú de tarjetas de crédito -->
+    <string name="menu_buscar_tarjeta">Buscar Tarjeta</string>
+    <string name="menu_ordenar_tarjetas">Ordenar Tarjetas</string>
+    <string name="menu_numero_tarjetas">Número de Tarjetas</string>
+
+    <!-- ############################## -->
+    <!-- AJUSTES GENERALES -->
+    <!-- ############################## -->
+
+    <!-- Menú de ajustes -->
     <string name="Txt_Ajustes">Ajustes</string>
     <string name="Elimimnar_todos_registros">Eliminar Registros</string>
     <string name="Exportar_registros">Exportar Registros</string>
     <string name="Importar_registros">Importar Registros</string>
     <string name="Cambiar_contraseña_maestra">Cambiar Contraseña</string>
 
-    <!--Cuadro dialogo contraseña maestra-->
+    <!-- Diálogo: Cambiar contraseña maestra -->
     <string name="TXT_contraseña_maestra">Su contraseña maestra es</string>
     <string name="Password_maestra"> -- </string>
     <string name="Et_nuevo_password_maestra">Nueva Contraseña</string>
@@ -86,26 +197,9 @@
     <string name="Btn_cambiar_password_maestra">Cambiar</string>
     <string name="Btn_cancelar_password_maestra">Cancelar</string>
 
-    <!--Cuadro dialogo mensaje-->
+    <!-- Diálogo: Mensaje de confirmación -->
     <string name="Pregunta_txt">¿Eliminar registros?</string>
     <string name="Btn_Si">Si</string>
     <string name="Btn_No">No</string>
-
-    <!--Cuadro dialogo mensaje-->
-    <string name="TXT_Bienvenidos">Bienvenido(a)</string>
-    <string name="TXT_Mensaje">Introduzca su contraseña maestra</string>
-    <string name="EtMPassword">Contraseña</string>
-    <string name="EtCPassword">Confirmar Contraseña</string>
-    <string name="Btn_Registrar">Confirmar Contraseña</string>
-
-    <!--Login-->
-    <string name="Btn_ingresar">Ingresar</string>
-
-    <!--BIOMETRICO-->
-    <string name="TXT_otro_metodo">Otro metodo</string>
-    <string name="BtnInicioSesionBiometrico">Autenticacion Biometrica</string>"
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

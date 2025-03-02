@@ -38,7 +38,7 @@ public class Registro extends AppCompatActivity {
                 String string_password = EtMPassword.getText().toString().trim();
                 String string_confirm_password = EtCPassword.getText().toString().trim();
 
-                //Validacion de campos
+                //Valqidacion de campos
                 if (TextUtils.isEmpty(string_password)){
                     Toast.makeText(Registro.this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
                 }

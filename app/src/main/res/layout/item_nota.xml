@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Icono de la nota -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_item_nota"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/item_nota"
+            android:layout_centerVertical="true"
+            android:padding="8dp"/>
+
+        <!-- Botón de más opciones -->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/img_buton_mas_opciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_mas_opciones"
+            android:background="@null"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"/>
+
+        <!-- Contenedor para el título y el contenido de la nota -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_toStartOf="@id/img_buton_mas_opciones"
+            android:layout_toEndOf="@id/img_item_nota"
+            android:layout_marginStart="2dp">
+
+            <!-- Título de la nota -->
+            <TextView
+                android:id="@+id/Item_titulo"
+                android:text="@string/Item_titulo"
+                android:fontFamily="@font/robotocondensed_bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <!-- Contenido de la nota -->
+            <TextView
+                android:id="@+id/Item_contenido"
+                android:text="@string/Item_contenido"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="16sp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
