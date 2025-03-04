@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".OpcionesPassword.Agregar_Actualizar_Tarjeta">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!-- Título de la tarjeta -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/EtTitulo_Tarjeta"
+                android:hint="@string/EtTitulo_Tarjeta"
+                android:padding="15dp"
+                android:textSize="25sp"
+                android:maxLines="1"
+                android:inputType="textCapWords|text"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Número de la tarjeta -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/EtNumero_Tarjeta"
+                android:hint="@string/EtNumero_Tarjeta"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:inputType="number"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Nombre en la tarjeta -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/EtNombre_Tarjeta"
+                android:hint="@string/EtNombre_Tarjeta"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:inputType="textCapWords|text"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Fecha de expiración -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/EtFecha_Expiracion"
+                android:hint="@string/EtFecha_Expiracion"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:inputType="text"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- CVV -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/EtCVV"
+                android:hint="@string/EtCVV"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:inputType="number"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Nota adicional -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/EtNota_Tarjeta"
+                android:hint="@string/EtNota_Tarjeta"
+                android:padding="15dp"
+                android:textSize="18sp"
+                android:height="150dp"
+                android:gravity="start"
+                android:inputType="textCapSentences|textMultiLine"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>

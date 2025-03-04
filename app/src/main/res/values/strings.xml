@@ -17,6 +17,7 @@
     <!-- Opciones del menú principal -->
     <string name="Opcion_todas">Todas</string>
     <string name="Opcion_notas">Notas</string>
+    <string name="Opcion_tarjetas">Tarjetas</string>
     <string name="Opcion_ajustes">Ajustes</string>
     <string name="Opciones_salir">Salir</string>
 
@@ -27,6 +28,7 @@
     <!-- Botones flotantes -->
     <string name="FAB_AgregarPassword">Agregar</string>
     <string name="FAB_AgregarPasswordNotas">Agregar Nota</string>
+    <string name="FAB_AgregarTarjeta">Agregar Tarjeta</string>
 
     <!-- ############################## -->
     <!-- SECCIÓN DE CONTRASEÑAS NORMALES -->
@@ -156,12 +158,14 @@
     <string name="Btn_Titulo_desc_Tarjetas">Z-A</string>
 
     <!-- Detalles de tarjetas de crédito -->
+    <string name="Txt_D_Titulo_Tarjeta">Titulo: </string>
     <string name="Txt_D_Numero_Tarjeta">Número de Tarjeta: </string>
     <string name="Txt_D_Nombre_Tarjeta">Nombre en la Tarjeta: </string>
     <string name="Txt_D_Fecha_Expiracion">Fecha de Expiración: </string>
     <string name="Txt_D_CVV">CVV: </string>
     <string name="Txt_D_Nota_Tarjeta">Nota: </string>
 
+    <string name="D_Titulo_Tarjeta"> -- </string>
     <string name="D_Numero_Tarjeta"> -- </string>
     <string name="D_Nombre_Tarjeta"> -- </string>
     <string name="D_Fecha_Expiracion"> -- </string>
@@ -201,5 +205,7 @@
     <string name="Pregunta_txt">¿Eliminar registros?</string>
     <string name="Btn_Si">Si</string>
     <string name="Btn_No">No</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

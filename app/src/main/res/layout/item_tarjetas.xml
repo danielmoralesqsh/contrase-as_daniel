@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Icono de la tarjeta -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_item_tarjeta"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/item_tarjeta"
+            android:layout_centerVertical="true"
+            android:padding="8dp"/>
+
+        <!-- Botón de opciones -->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/img_buton_mas_opciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_mas_opciones"
+            android:background="@null"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"/>
+
+        <!-- Contenedor de texto -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_toStartOf="@id/img_buton_mas_opciones"
+            android:layout_toEndOf="@id/img_item_tarjeta"
+            android:layout_marginStart="2dp">
+
+            <!-- Título de la tarjeta -->
+            <TextView
+                android:id="@+id/Item_titulo_tarjeta"
+                android:text="@string/Item_titulo_tarjeta"
+                android:fontFamily="@font/robotocondensed_bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <!-- Número de la tarjeta -->
+            <TextView
+                android:id="@+id/Item_numero_tarjeta"
+                android:text="@string/Item_numero_tarjeta"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- Nombre en la tarjeta -->
+            <TextView
+                android:id="@+id/Item_nombre_tarjeta"
+                android:text="@string/Item_nombre_tarjeta"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- Fecha de expiración -->
+            <TextView
+                android:id="@+id/Item_fecha_expiracion"
+                android:text="@string/Item_fecha_expiracion"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- CVV -->
+            <TextView
+                android:id="@+id/Item_cvv"
+                android:text="@string/Item_cvv"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- Nota adicional -->
+            <TextView
+                android:id="@+id/Item_nota_tarjeta"
+                android:text="@string/Item_nota_tarjeta"
+                android:fontFamily="@font/robotocondensed_regular"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

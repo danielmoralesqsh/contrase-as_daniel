@@ -25,6 +25,7 @@ import com.daniel.vaulcontraseas.Login_usuario.Login_user;
 import com.daniel.vaulcontraseas.MainActivity;
 import com.daniel.vaulcontraseas.Modelo.Password;
 import com.daniel.vaulcontraseas.Modelo.Nota;
+import com.daniel.vaulcontraseas.Modelo.Tarjeta;
 import com.daniel.vaulcontraseas.R;
 import com.opencsv.CSVReader;
 
@@ -80,12 +81,13 @@ public class F_Ajustes extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Importar registros");
-                builder.setMessage("Se eliminarán los registros actuales de contraseñas y notas");
+                builder.setMessage("Se eliminarán los registros actuales de contraseñas, notas y tarjetas");
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         bdHelper.Eliminar_todos_registros();
                         bdHelper.eliminarTodasLasNotas();
+                        bdHelper.eliminarTodasLasTarjetas();
                         ImportarRegistros(); // Llamada directa sin verificar permisos
                     }
                 });
@@ -123,6 +125,7 @@ public class F_Ajustes extends Fragment {
             public void onClick(View v) {
                 bdHelper.Eliminar_todos_registros();
                 bdHelper.eliminarTodasLasNotas();
+                bdHelper.eliminarTodasLasTarjetas();
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 Toast.makeText(getActivity(), "Registros eliminados", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
@@ -155,16 +158,22 @@ public class F_Ajustes extends Fragment {
         String csvnombreArchivo = "VaulContraseas.csv";
         // Nombre del archivo para notas
         String csvnombreArchivoNotas = "VaulNotas.csv";
+        // Nombre del archivo para tarjetas
+        String csvnombreArchivoTarjetas = "VaulTarjetas.csv";
 
         // Concatenamos la carpeta con el nombre del archivo
         String Carpeta_archivo = carpeta + "/" + csvnombreArchivo;
         String Carpeta_archivo_notas = carpeta + "/" + csvnombreArchivoNotas;
+        String Carpeta_archivo_tarjetas = carpeta + "/" + csvnombreArchivoTarjetas;
 
         // Exportar registros de contraseñas
         exportarTabla(Constants.TABLE_NAME, Carpeta_archivo, "Contraseñas");
 
         // Exportar registros de notas
         exportarTabla(Constants.TABLE_NOTAS, Carpeta_archivo_notas, "Notas");
+
+        // Exportar registros de tarjetas
+        exportarTabla(Constants.TABLE_TARJETAS, Carpeta_archivo_tarjetas, "Tarjetas");
     }
 
     private void exportarTabla(String tabla, String rutaArchivo, String tipoDatos) {
@@ -172,8 +181,10 @@ public class F_Ajustes extends Fragment {
         ArrayList<?> registros;
         if (tabla.equals(Constants.TABLE_NAME)) {
             registros = bdHelper.ObtenerTodosLosRegistros(ordenarTituloASC);
-        } else {
+        } else if (tabla.equals(Constants.TABLE_NOTAS)) {
             registros = bdHelper.obtenerTodasLasNotas(ordenarTituloASC);
+        } else {
+            registros = bdHelper.obtenerTodasLasTarjetas(ordenarTituloASC);
         }
 
         try {
@@ -199,7 +210,7 @@ public class F_Ajustes extends Fragment {
                     fileWriter.append("" + registro.getT_registro());
                     fileWriter.append(",");
                     fileWriter.append("" + registro.getT_actualizacion());
-                } else {
+                } else if (tabla.equals(Constants.TABLE_NOTAS)) {
                     Nota nota = (Nota) registros.get(i);
                     fileWriter.append("" + nota.getId());
                     fileWriter.append(",");
@@ -210,6 +221,25 @@ public class F_Ajustes extends Fragment {
                     fileWriter.append("" + nota.getT_registro());
                     fileWriter.append(",");
                     fileWriter.append("" + nota.getT_actualizacion());
+                } else {
+                    Tarjeta tarjeta = (Tarjeta) registros.get(i);
+                    fileWriter.append("" + tarjeta.getId());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getTitulo());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getNumero_tarjeta());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getNombre_tarjeta());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getFecha_expiracion());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getCvv());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getNota());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getT_registro());
+                    fileWriter.append(",");
+                    fileWriter.append("" + tarjeta.getT_actualizacion());
                 }
                 fileWriter.append("\n");
             }
@@ -228,12 +258,17 @@ public class F_Ajustes extends Fragment {
         String Carpeta_archivo = Environment.getExternalStorageDirectory() + "/Download/VaulContraseas/VaulContraseas.csv";
         // Establecer la ruta para notas
         String Carpeta_archivo_notas = Environment.getExternalStorageDirectory() + "/Download/VaulContraseas/VaulNotas.csv";
+        // Establecer la ruta para tarjetas
+        String Carpeta_archivo_tarjetas = Environment.getExternalStorageDirectory() + "/Download/VaulContraseas/VaulTarjetas.csv";
 
         // Importar registros de contraseñas
         importarTabla(Constants.TABLE_NAME, Carpeta_archivo, "Contraseñas");
 
         // Importar registros de notas
         importarTabla(Constants.TABLE_NOTAS, Carpeta_archivo_notas, "Notas");
+
+        // Importar registros de tarjetas
+        importarTabla(Constants.TABLE_TARJETAS, Carpeta_archivo_tarjetas, "Tarjetas");
     }
 
     private void importarTabla(String tabla, String rutaArchivo, String tipoDatos) {
@@ -258,7 +293,7 @@ public class F_Ajustes extends Fragment {
                         long id = bdHelper.insertarRegistro(
                                 titulo, cuenta, nombre_usuario, password,
                                 sitio_web, nota, t_registro, t_actualizacion);
-                    } else {
+                    } else if (tabla.equals(Constants.TABLE_NOTAS)) {
                         // Importar registros de notas
                         String ids = nexline[0];
                         String titulo = nexline[1];
@@ -268,6 +303,21 @@ public class F_Ajustes extends Fragment {
 
                         long id = bdHelper.insertarNota(
                                 titulo, contenido, t_registro, t_actualizacion);
+                    } else {
+                        // Importar registros de tarjetas
+                        String ids = nexline[0];
+                        String titulo = nexline[1];
+                        String numero_tarjeta = nexline[2];
+                        String nombre_tarjeta = nexline[3];
+                        String fecha_expiracion = nexline[4];
+                        String cvv = nexline[5];
+                        String nota = nexline[6];
+                        String t_registro = nexline[7];
+                        String t_actualizacion = nexline[8];
+
+                        long id = bdHelper.insertarTarjeta(
+                                titulo, numero_tarjeta, nombre_tarjeta, fecha_expiracion,
+                                cvv, nota, t_registro, t_actualizacion);
                     }
                 }
 

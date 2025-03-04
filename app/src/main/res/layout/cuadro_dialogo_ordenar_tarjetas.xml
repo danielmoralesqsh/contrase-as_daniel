@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <!-- Animación Lottie -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:lottie_imageAssetsFolder="assets"
+        app:lottie_fileName="filtro_animado.json"
+        app:lottie_autoPlay="true"/>
+
+    <!-- Nuevos -->
+    <Button
+        android:id="@+id/Btn_Nuevos_Tarjetas"
+        android:text="@string/Btn_Nuevos_Tarjetas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Antiguos -->
+    <Button
+        android:id="@+id/Btn_Pasados_Tarjetas"
+        android:text="@string/Btn_Pasados_Tarjetas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Ascendente (A-Z) -->
+    <Button
+        android:id="@+id/Btn_Titulo_asc_Tarjetas"
+        android:text="@string/Btn_Titulo_asc_Tarjetas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Descendente (Z-A) -->
+    <Button
+        android:id="@+id/Btn_Titulo_desc_Tarjetas"
+        android:text="@string/Btn_Titulo_desc_Tarjetas"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/robotocondensed_bold"
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

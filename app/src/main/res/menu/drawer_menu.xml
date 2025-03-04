@@ -16,6 +16,12 @@
         />
 
     <item
+        android:id="@+id/Opcion_tarjetas"
+        android:title="@string/Opcion_tarjetas"
+        android:icon="@drawable/icono_tarjetas"
+        />
+
+    <item
         android:id="@+id/Opcion_ajustes"
         android:title="@string/Opcion_ajustes"
         android:icon="@drawable/icono_ajustes"

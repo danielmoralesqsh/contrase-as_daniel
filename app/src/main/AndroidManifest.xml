@@ -52,11 +52,19 @@
             android:exported="false" />
 
         <activity
+            android:name=".Detalle.Detalle_tarjeta"
+            android:exported="false" />
+
+        <activity
             android:name=".OpcionesPassword.Agregar_Actualizar_Registro"
             android:exported="false" />
 
         <activity
             android:name=".OpcionesPassword.Agregar_Actualizar_Nota"
+            android:exported="false" />
+
+        <activity
+            android:name=".OpcionesPassword.Agregar_Actualizar_Tarjeta"
             android:exported="false" />
 
         <activity

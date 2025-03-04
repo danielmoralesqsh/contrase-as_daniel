@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.daniel.vaulcontraseas.Modelo.Password;
 import com.daniel.vaulcontraseas.Modelo.Nota;
+import com.daniel.vaulcontraseas.Modelo.Tarjeta;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,8 @@ public class BDHelper extends SQLiteOpenHelper {
         db.execSQL(Constants.CREATE_TABLE);
         // Crear la tabla de notas
         db.execSQL(Constants.CREATE_TABLE_NOTAS);
+        // Crear la tabla de tarjetas de crédito
+        db.execSQL(Constants.CREATE_TABLE_TARJETAS);
     }
 
     @Override
@@ -33,6 +36,7 @@ public class BDHelper extends SQLiteOpenHelper {
         // Eliminar las tablas si existen
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_NOTAS);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_TARJETAS);
         // Volver a crear las tablas
         onCreate(db);
     }
@@ -233,6 +237,116 @@ public class BDHelper extends SQLiteOpenHelper {
     public void eliminarTodasLasNotas() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + Constants.TABLE_NOTAS);
+        db.close();
+    }
+
+    // Métodos para la tabla de tarjetas de crédito
+
+    public long insertarTarjeta(String titulo, String numero_tarjeta, String nombre_tarjeta, String fecha_expiracion,
+                                String cvv, String nota, String T_registro, String T_actualizacion) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Constants.T_TITULO, titulo);
+        values.put(Constants.T_NUMERO_TARJETA, numero_tarjeta);
+        values.put(Constants.T_NOMBRE_TARJETA, nombre_tarjeta);
+        values.put(Constants.T_FECHA_EXPIRACION, fecha_expiracion);
+        values.put(Constants.T_CVV, cvv);
+        values.put(Constants.T_NOTA, nota);
+        values.put(Constants.T_TIEMPO_REGISTRO, T_registro);
+        values.put(Constants.T_TIEMPO_ACTUALIZACION, T_actualizacion);
+        long id = db.insert(Constants.TABLE_TARJETAS, null, values);
+        db.close();
+        return id;
+    }
+
+    public ArrayList<Tarjeta> obtenerTodasLasTarjetas(String orderby) {
+        ArrayList<Tarjeta> tarjetaList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + Constants.TABLE_TARJETAS + " ORDER BY " + orderby;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") Tarjeta modelo_tarjeta = new Tarjeta(
+                        "" + cursor.getInt(cursor.getColumnIndex(Constants.T_ID)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_TITULO)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_NUMERO_TARJETA)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_NOMBRE_TARJETA)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_FECHA_EXPIRACION)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_CVV)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_NOTA)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_TIEMPO_REGISTRO)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_TIEMPO_ACTUALIZACION)));
+                tarjetaList.add(modelo_tarjeta);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return tarjetaList;
+    }
+
+    public void actualizarTarjeta(String id, String titulo, String numero_tarjeta, String nombre_tarjeta, String fecha_expiracion,
+                                  String cvv, String nota, String T_registro, String T_actualizacion) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Constants.T_TITULO, titulo);
+        values.put(Constants.T_NUMERO_TARJETA, numero_tarjeta);
+        values.put(Constants.T_NOMBRE_TARJETA, nombre_tarjeta);
+        values.put(Constants.T_FECHA_EXPIRACION, fecha_expiracion);
+        values.put(Constants.T_CVV, cvv);
+        values.put(Constants.T_NOTA, nota);
+        values.put(Constants.T_TIEMPO_REGISTRO, T_registro);
+        values.put(Constants.T_TIEMPO_ACTUALIZACION, T_actualizacion);
+        db.update(Constants.TABLE_TARJETAS, values, Constants.T_ID + " = ?", new String[]{id});
+        db.close();
+    }
+
+    public void eliminarTarjeta(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Constants.TABLE_TARJETAS, Constants.T_ID + " = ?", new String[]{id});
+        db.close();
+    }
+
+    public ArrayList<Tarjeta> buscarTarjetas(String consulta) {
+        ArrayList<Tarjeta> tarjetaList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + Constants.TABLE_TARJETAS + " WHERE "
+                + Constants.T_TITULO + " LIKE '%" + consulta + "%' OR "
+                + Constants.T_NUMERO_TARJETA + " LIKE '%" + consulta + "%' OR "
+                + Constants.T_NOMBRE_TARJETA + " LIKE '%" + consulta + "%'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") Tarjeta modelo_tarjeta = new Tarjeta(
+                        "" + cursor.getInt(cursor.getColumnIndex(Constants.T_ID)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_TITULO)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_NUMERO_TARJETA)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_NOMBRE_TARJETA)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_FECHA_EXPIRACION)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_CVV)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_NOTA)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_TIEMPO_REGISTRO)),
+                        "" + cursor.getString(cursor.getColumnIndex(Constants.T_TIEMPO_ACTUALIZACION)));
+                tarjetaList.add(modelo_tarjeta);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return tarjetaList;
+    }
+
+    public int obtenerNumeroTarjetas() {
+        String countQuery = "SELECT * FROM " + Constants.TABLE_TARJETAS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    public void eliminarTodasLasTarjetas() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + Constants.TABLE_TARJETAS);
         db.close();
     }
 

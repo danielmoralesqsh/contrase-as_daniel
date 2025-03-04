@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.daniel.vaulcontraseas.Fragmentos.F_Ajustes;
 import com.daniel.vaulcontraseas.Fragmentos.F_Notas;
+import com.daniel.vaulcontraseas.Fragmentos.F_Tarjetas;
 import com.daniel.vaulcontraseas.Fragmentos.F_Todas;
 import com.daniel.vaulcontraseas.Login_usuario.Login_user;
 import com.google.android.material.navigation.NavigationView;
@@ -54,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new F_Notas()).commit();
                 navigationView.setCheckedItem(R.id.Opcion_notas);
+            } else if ("F_Tarjetas".equals(fragmentToLoad)) {
+                // Cargar el fragmento de tarjetas
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new F_Tarjetas()).commit();
+                navigationView.setCheckedItem(R.id.Opcion_tarjetas);
             } else {
                 // Cargar el fragmento por defecto (F_Todas)
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -80,6 +86,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.Opcion_notas) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new F_Notas()).commit();
+        }
+        if (id == R.id.Opcion_tarjetas) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new F_Tarjetas()).commit();
         }
         if (id == R.id.Opcion_ajustes) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
