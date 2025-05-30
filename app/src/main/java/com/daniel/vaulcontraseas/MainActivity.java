@@ -55,11 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new F_Notas()).commit();
                 navigationView.setCheckedItem(R.id.Opcion_notas);
-            } else if ("F_Tarjetas".equals(fragmentToLoad)) {
-                // Cargar el fragmento de tarjetas
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new F_Tarjetas()).commit();
-                navigationView.setCheckedItem(R.id.Opcion_tarjetas);
             } else {
                 // Cargar el fragmento por defecto (F_Todas)
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
